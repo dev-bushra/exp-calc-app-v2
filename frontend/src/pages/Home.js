@@ -11,7 +11,9 @@ const Home = () => {
   const {user} = useAuthContext()
 
   useEffect(() => {
-    const fetchWorkouts = async () => {
+    
+    // fetch data
+    const fetchExpense = async () => {
       const response = await fetch('/api/expense', {
         headers: {'Authorization': `Bearer ${user.token}`},
       })
@@ -22,9 +24,7 @@ const Home = () => {
       }
     }
 
-    if (user) {
-      fetchWorkouts()
-    }
+    if (user) { fetchExpense() }
   }, [dispatch, user])
 
   return (
