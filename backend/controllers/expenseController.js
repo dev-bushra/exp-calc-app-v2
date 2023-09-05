@@ -10,6 +10,24 @@ const getExpense = async (req, res) => {
   res.status(200).json(expense)
 }
 
+// get expense withing the date range
+const getDateRangeExpense = async (req, res) => {
+  const user_id = req.user._id;
+  const selectedMonth = req.body.selectedMonth;
+  const endDate = new Date();
+  const query = {
+    user_id: user_id,
+    createdAt: {
+      $gte: selectedMonth,
+      $lte: endDate,
+    },
+  };
+
+  const expense = await Expense.find(query).sort({ createdAt: -1 });
+
+  res.status(200).json(expense);
+};
+
 // get a single expense
 const getSingleExpense = async (req, res) => {
   const { id } = req.params
@@ -99,5 +117,6 @@ module.exports = {
   getSingleExpense,
   createExpense,
   deleteExpense,
-  updateExpense
-}
+  updateExpense,
+  getDateRangeExpense,
+};

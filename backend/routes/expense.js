@@ -4,8 +4,9 @@ const {
   getExpense,
   getSingleExpense,
   deleteExpense,
-  updateExpense
-} = require('../controllers/expenseController')
+  updateExpense,
+  getDateRangeExpense,
+} = require("../controllers/expenseController");
 const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()
@@ -15,6 +16,9 @@ router.use(requireAuth)
 
 // GET all expense
 router.get('/', getExpense)
+
+// GET date range expense
+router.post('/date', getDateRangeExpense);
 
 //GET a single expense
 router.get('/:id', getSingleExpense)
